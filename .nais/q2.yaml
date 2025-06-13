@@ -4,7 +4,7 @@ metadata:
   labels:
     team: pensjon-q2
   name: nidhogg
-  namespace: onboarding
+  namespace: pensjon-q2
 spec:
   ingresses:
     - https://nidhogg.intern.dev.nav.no
