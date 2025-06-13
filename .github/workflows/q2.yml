@@ -1,22 +1,27 @@
 name: Build and deploy
-on: [ push ]
-
+on:
+  push:
+    branches:
+      - main
 jobs:
-  build:
-    name: Build JAR
+  build_and_deploy:
+    name: Build, push and deploy
     runs-on: ubuntu-latest
     permissions:
       contents: read
       id-token: write
-    outputs:
-      image: ${{ steps.docker-build-push.outputs.image }}
+      actions: read
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-java@v3
+      - name: Build and push image and SBOM to OCI registry
+        uses: nais/docker-build-push@v0
+        id: docker-build-push
         with:
-          distribution: temurin
-          java-version: 21
-      - name: Build application distribution
-        uses: gradle/gradle-build-action@v2.7.1
-        with:
-          arguments: --configuration-cache build installDist
+          team: pensjon-q2
+      - name: Deploy to Nais
+        uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: "dev-fss"
+          RESOURCE: .nais/q2.yaml
+          VAR: image=${{ steps.docker-build-push.outputs.image }} #
+          TELEMETRY: ${{ steps.docker-build-push.outputs.telemetry }}

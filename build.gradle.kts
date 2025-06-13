@@ -3,10 +3,16 @@ plugins {
     kotlin("plugin.spring") version "1.9.25"
     id("org.springframework.boot") version "3.5.0"
     id("io.spring.dependency-management") version "1.1.7"
+    application
 }
 
 group = "no.nav.pensjon"
-version = "0.0.1-SNAPSHOT"
+version = "1"
+
+application {
+    mainClass.set("no.nav.pensjon.nidhogg.NidhoggApplicationKt")
+}
+
 
 java {
     toolchain {
@@ -34,4 +40,8 @@ kotlin {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+tasks.withType<org.springframework.boot.gradle.tasks.bundling.BootJar> {
+    archiveFileName.set("app.jar")
 }
