@@ -13,11 +13,19 @@ jobs:
       actions: read
     steps:
       - uses: actions/checkout@v4
-      - name: Build and push image and SBOM to OCI registry
+      - name: Build
+        shell: bash
+        run: |
+          ./gradlew build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TZ: "Europe/Oslo"
+
+      - name: Build and push image
         uses: nais/docker-build-push@v0
         id: docker-build-push
         with:
-          team: pensjon-q2
+          team: 'pensjon-q2'
       - name: Deploy to Nais
         uses: nais/deploy/actions/deploy@v2
         env:
