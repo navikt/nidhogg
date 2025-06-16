@@ -9,7 +9,7 @@ class SporingsloggAppender(
     val dataSource: DataSource
 ) {
 
-    @KafkaListener(topics = ["pensjon-q2.sporingslogg"])
+    @KafkaListener(topics = ["pensjon-q2.sporingslogg"], groupId = "sporingslogg")
     fun listen(message: String) {
         dataSource.connection.use { connection ->
             connection.prepareStatement("INSERT INTO sporingslogg (melding) VALUES (?)").apply {
