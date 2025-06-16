@@ -15,7 +15,7 @@ class SporingsloggController(
     fun hello(): String {
         return buildString {
             dataSource.connection.use { connection ->
-                val resultSet = connection.prepareStatement("SELECT COUNT(1) FROM INFORMATIONSLOG").executeQuery()
+                val resultSet = connection.prepareStatement("SELECT COUNT(1) FROM sporingslogg").executeQuery()
                 while (resultSet.next()) {
                     append {"" + resultSet.getDate(1) + " - " + resultSet.getString(2) + "\n" }
                 }
