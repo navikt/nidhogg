@@ -1,0 +1,16 @@
+apiVersion: kafka.nais.io/v1
+kind: Topic
+metadata:
+  name: nidhogg-sporingslogg
+  namespace: pensjon-q2
+  labels:
+    team: pensjon-q2
+spec:
+  pool: nav-dev
+  acl:
+    - team: pensjon-q2
+      application: nidhogg
+      access: readwrite   # read, write, readwrite
+    - team: pensjon-q2
+      application: pensjon-pen-q2
+      access: readwrite   # read, write, readwrite
