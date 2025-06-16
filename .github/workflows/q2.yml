@@ -29,7 +29,7 @@ jobs:
       - name: Deploy to Nais
         uses: nais/deploy/actions/deploy@v2
         env:
-          CLUSTER: "dev-fss"
+          CLUSTER: "dev-gcp"
           RESOURCE: .nais/q2.yaml
           VAR: image=${{ steps.docker-build-push.outputs.image }} #
           TELEMETRY: ${{ steps.docker-build-push.outputs.telemetry }}
