@@ -24,3 +24,5 @@ spec:
         tier: db-f1-micro
         databases:
           - name: sporingslogg
+  kafka:
+    pool: nav-dev
